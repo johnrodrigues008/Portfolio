@@ -1,10 +1,11 @@
 export const en = {
   nav: {
-    brand: "Personal portfolio",
+    brand: "John Rodrigues",
     home: "Home",
     about: "About",
     work: "Work",
     education: "Education",
+    experience: "Experience",
     contact: "Contact",
     menuLabel: "Navigation menu",
     openMenu: "Open menu",
@@ -16,18 +17,37 @@ export const en = {
     available: "Available languages",
   },
   hero: {
-    imageAlt: "John Rodrigues, Senior Full-Stack Developer",
-    role: "Full-Stack Developer · Front-End & Back-End Engineering · Product & Interface Design · Web Accessibility",
-    bio1:
-      "Full-stack developer with experience across the entire software development lifecycle, from requirements analysis and prototyping to development, testing, deployment, and maintenance.",
-    bio2:
-      "Experienced in systems analysis, application integration, software architecture, scalability, maintainability, and accessible web development.",
-    downloadCv: "Download Resume",
-    viewExperience: "View experience",
+    greeting: "Hi! I'm John",
+    imageAlt: "John Rodrigues, Full-Stack Developer",
+    downloadCv: "Download CV",
+    viewExperience: "See experience",
+    bio: [
+      { text: "I'm a " },
+      { text: "Full Stack Developer", highlight: true },
+      {
+        text: ". Over the past five years, I've been actively engaged with technologies such as ",
+      },
+      { text: "React", highlight: true },
+      { text: ", " },
+      { text: "Node.js", highlight: true },
+      { text: ", and " },
+      { text: "PostgreSQL", highlight: true },
+      {
+        text: ", among others. Concurrently, I'm deepening my expertise in Information Technology by pursuing further studies in ",
+      },
+      { text: "Software Architecture, Data Science and Cybersecurity", highlight: true },
+      { text: "." },
+    ],
+  },
+  skills: {
+    yearsOf: "5 years of",
+    xp: "XP",
+    caption: "with the most popular ecosystem fullstack",
   },
   footer: {
     home: "HOME",
-    socialLabel: "Social links",
+    socialLabel: "Social Medias",
+    copyright: "John Rodrigues © 2026",
   },
   about: {
     title: "About",
@@ -47,7 +67,7 @@ export const en = {
       '"There is nothing so useless as doing efficiently that which should not be done at all."',
     quoteNote:
       "This quote resonates with my approach to building purposeful, meaningful software.",
-    experience: "EXPERIENCE",
+    experience: "Experience",
     experienceEntries: [
       {
         role: "Full Stack Developer",
@@ -94,7 +114,7 @@ export const en = {
         ],
       },
     ],
-    skills: "SKILLS",
+    skills: "Skills",
     skillsGroups: [
       { category: "Backend", items: "Node.js (NestJS), PHP (Zend, Doctrine), Python" },
       { category: "Frontend", items: "JavaScript, TypeScript, React.js, Next.js, AngularJS, Angular, HTML5, CSS3, SCSS, Tailwind" },
@@ -102,15 +122,15 @@ export const en = {
       { category: "DevOps & Tools", items: "Docker, Git, Bitbucket, Jira, ELK Stack, Scrum, Kanban" },
       { category: "Accessibility & SEO", items: "WCAG 2.1, Semantic HTML, Core Web Vitals, SEO optimization" },
     ],
-    kudos: "KUDOS",
+    kudos: "Kudos",
     kudosText:
       "My journey has been shaped by great mentors and teams who helped refine my skills and thinking as an engineer and designer.",
-    thankYou: "THANK YOU.",
+    thankYou: "Thank you.",
   },
   work: {
-    title: "WORK",
+    title: "Work",
     intro:
-      "Welcome to my projects section. Each piece of work presented here was developed with attention to detail and represents a part of my professional journey.",
+      "A selection of projects developed with attention to detail and a focus on real product problems.",
     scrollDown: "Scroll down",
     preview: "Preview",
     github: "GitHub",
@@ -138,7 +158,7 @@ export const en = {
     },
   },
   education: {
-    title: "EDUCATION",
+    title: "Education",
     intro:
       "Academic background and certifications that support my continuous development in software engineering.",
     degreesTitle: "Degrees",
@@ -175,18 +195,18 @@ export const en = {
     languages: ["Portuguese — Native", "English — Advanced", "Spanish — Intermediate"],
   },
   contact: {
-    title: "CONTACT",
+    title: "Contact",
     hello: "Hello.",
     intro:
-      "Need a beautiful, well-structured website that you can own and maintain yourself? Get in touch.",
-    email: "Email: johnrodrigues008@gmail.com",
-    phone: "Phone: +55 61 99180-3216",
+      "Need a well-structured product that you can own and maintain? Get in touch.",
+    email: "johnrodrigues008@gmail.com",
+    phone: "+55 61 99180-3216",
     location: "Brasília, Brazil",
     internet: "On the Internet:",
   },
   resume: {
-    pt: "/docs/Curriculum_John_Rodrigues.pdf",
-    en: "/docs/Curriculum_John_Rodrigues_EN.pdf",
+    pt: "/docs/Curriculum  John Rodrigues.pdf",
+    en: "/docs/Curriculum  John Rodrigues.pdf",
   },
 } as const;
 
@@ -215,6 +235,11 @@ export type Certification = {
   year: string;
 };
 
+export type BioPart = {
+  text: string;
+  highlight?: boolean;
+};
+
 export type Dictionary = {
   nav: {
     brand: string;
@@ -222,6 +247,7 @@ export type Dictionary = {
     about: string;
     work: string;
     education: string;
+    experience: string;
     contact: string;
     menuLabel: string;
     openMenu: string;
@@ -233,16 +259,21 @@ export type Dictionary = {
     available: string;
   };
   hero: {
+    greeting: string;
     imageAlt: string;
-    role: string;
-    bio1: string;
-    bio2: string;
     downloadCv: string;
     viewExperience: string;
+    bio: readonly BioPart[];
+  };
+  skills: {
+    yearsOf: string;
+    xp: string;
+    caption: string;
   };
   footer: {
     home: string;
     socialLabel: string;
+    copyright: string;
   };
   about: {
     title: string;

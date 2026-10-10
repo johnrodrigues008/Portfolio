@@ -1,20 +1,31 @@
-import type { Metadata } from 'next';
-import { Geist_Mono } from 'next/font/google';
+import type { Metadata } from "next";
+import { Geist_Mono, Montserrat, Source_Sans_3 } from "next/font/google";
 
-import './globals.css';
-import { SectionProvider } from './contexts/section-context';
-import { TransitionProvider } from './contexts/transition-context';
-import { LocaleProvider } from './i18n';
+import "./globals.css";
+import SiteShell from "./components/site-shell";
+import { LocaleProvider } from "./i18n";
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+});
+
+const sourceSans = Source_Sans_3({
+  variable: "--font-source",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
 
 const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: 'John Rodrigues — Desenvolvedor Full Stack & UX Engineer',
+  title: "John Rodrigues — Desenvolvedor Full Stack",
   description:
-    'Portfólio de John Rodrigues, desenvolvedor especializado em interfaces modernas, animações, experiência do usuário e aplicações web de alta performance. Projetos que unem design, tecnologia e estratégia para entregar soluções digitais completas.',
+    "Portfólio de John Rodrigues, desenvolvedor full stack especializado em interfaces modernas, arquitetura de software e aplicações web de alta performance.",
 };
 
 export default function RootLayout({
@@ -24,11 +35,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${geistMono.variable} antialiased`}>
+      <body
+        className={`${sourceSans.variable} ${montserrat.variable} ${geistMono.variable} ${sourceSans.className} antialiased  cz-shortcut-listen="true"` } 
+      >
         <LocaleProvider>
-          <TransitionProvider>
-            <SectionProvider>{children}</SectionProvider>
-          </TransitionProvider>
+          <SiteShell>{children}</SiteShell>
         </LocaleProvider>
       </body>
     </html>

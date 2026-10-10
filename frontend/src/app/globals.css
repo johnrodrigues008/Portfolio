@@ -1,75 +1,68 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "GrandSlang-Roman";
-  src: url("/fonts/GrandSlang-Roman.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
-  --background: #1A1A18;
-  --foreground: #ECE7C1;
-  --font-grandslang-roman: "GrandSlang-Roman", serif;
+  --background: #12263a;
+  --foreground: #f4f1ea;
+  --muted: #a8b4c4;
+  --accent: #c9a44c;
+  --card: #1b3654;
+  --navy: #1b3654;
+  --navy-dark: #0e1c2c;
+  --cream: #f4f1ea;
+  --paper: #e6dcc8;
 }
 
-@theme inline{
+@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "monsterart", sans-serif;
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-navy: var(--navy);
+  --color-navy-dark: var(--navy-dark);
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+
+  --font-sans: var(--font-source), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-grandslang: "GrandSlang-Roman", serif;
+}
 
-  --animate-spin-slow: spin-slow 16s linear infinite;
-  --animate-spin-slow-reverse: spin-slow-reverse 18s linear infinite;
-
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
-  @keyframes spin-slow-reverse {
-    from { transform: rotate(360deg); }
-    to   { transform: rotate(0deg); }
-  }
-
-  @keyframes curtain-down {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(-100%);
-    }
-  }
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+html {
+  scroll-behavior: auto;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "monsterart", sans-serif;
-  overflow: hidden;
+  font-family: var(--font-sans);
 }
 
-.section-panel {
-  scrollbar-width: thin;
-  scrollbar-color: #C2BE9F transparent;
+h1,
+h2,
+h3,
+.font-heading {
+  font-family: var(--font-heading);
 }
 
-.section-panel::-webkit-scrollbar {
-  width: 6px;
+.skills-scroll {
+  scrollbar-width: none;
 }
 
-.section-panel::-webkit-scrollbar-thumb {
-  background-color: #C2BE9F;
+.skills-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.skills-track {
+  height: 4px;
   border-radius: 999px;
+  background: color-mix(in srgb, var(--cream) 18%, transparent);
 }
+
+.skills-thumb {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+

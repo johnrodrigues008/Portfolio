@@ -3,99 +3,80 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Logo from "../../../public/img/logo.jpeg";
+import Photo from "../../../public/img/person.jpeg";
 import { useLocale, useTranslations } from "../i18n";
-import { useSection } from "../contexts/section-context";
 
 export default function Hero() {
   const t = useTranslations();
   const { locale } = useLocale();
-  const { navigateToSection } = useSection();
-
   const resumePath = locale === "en" ? t.resume.en : t.resume.pt;
+
+  const scrollToExperience = () => {
+    document.getElementById("experience")?.scrollIntoView({
+      behavior: "auto",
+      block: "start",
+    });
+  };
 
   return (
     <section
+      id="home"
       aria-labelledby="hero-title"
-      className="hero flex h-full w-full flex-col justify-center px-4 lg:max-w-[700px] lg:px-8"
+      className="scroll-mt-24 px-4 pt-6 pb-10 sm:px-6 md:py-[100px] lg:px-8"
     >
-      <div className="mx-auto w-full max-w-[22rem] sm:max-w-[26rem] md:max-w-[32rem] lg:mx-0 lg:max-w-none">
-        <div className="mt-8 mb-5 flex justify-center pb-2 sm:mb-6 sm:pb-3 lg:mt-0 lg:mb-0 lg:pb-8">
-          <Image
-            src={Logo}
-            alt={t.hero.imageAlt}
-            width={350}
-            height={350}
-            sizes="(max-width: 640px) 168px, (max-width: 1023px) 220px, (max-width: 1280px) 240px, (max-width: 1536px) 300px, 350px"
-            priority
-            className="
-              h-[168px] w-[168px] rounded-full object-cover
-              sm:h-[200px] sm:w-[200px]
-              md:h-[220px] md:w-[220px]
-              lg:h-[240px] lg:w-[240px]
-              xl:h-[240px] xl:w-[240px]
-              2xl:h-[350px] 2xl:w-[350px]
-            "
-          />
-        </div>
-
-        <div className="text-center lg:text-left">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
+        <div className="max-w-2xl">
           <h1
             id="hero-title"
-            className="
-              mb-3 text-xl font-bold tracking-[2px]
-              sm:mb-4 sm:text-2xl
-              md:text-[1.65rem]
-              lg:mb-7 lg:text-[20px] lg:tracking-[2px]
-            "
+            className="mb-6 text-4xl font-extrabold tracking-tight text-cream sm:text-5xl lg:text-6xl"
           >
-            JOHN RODRIGUES
+            {t.hero.greeting}
           </h1>
 
-          <p className="mb-4 text-xs leading-6 tracking-[1px] sm:mb-5 sm:text-sm sm:tracking-[1.5px] lg:mb-0 lg:text-[15px] lg:tracking-[1px]">
-            {t.hero.role}
+          <p className="max-w-xl text-base leading-7 text-muted sm:text-lg sm:leading-8">
+            {t.hero.bio.map((part, index) =>
+              part.highlight ? (
+                <strong
+                  key={index}
+                  className="font-semibold text-cream underline decoration-accent decoration-2 underline-offset-[5px]"
+                >
+                  {part.text}
+                </strong>
+              ) : (
+                <span key={index}>{part.text}</span>
+              )
+            )}
           </p>
 
-          <p className="mt-4 hidden text-sm leading-6 tracking-[1px] lg:block lg:mb-0 lg:text-[15px]">
-            {t.hero.bio2}
-          </p>
-
-          <div className="flex flex-col items-center gap-0 lg:mt-6 lg:flex-row lg:justify-start lg:gap-2">
+          <div className="mt-8 flex flex-wrap items-center gap-5">
             <Link
-              href={resumePath}
+              href={encodeURI(resumePath)}
               target="_blank"
               rel="noopener noreferrer"
-              download
-              className="mt-4 mr-0 w-full max-w-[350px] border-2 border-transparent bg-[#C2BE9F] px-6 py-3 text-center font-bold text-[#1A1A18] transition hover:border-[#C2BE9F] hover:bg-[#1A1A18] hover:text-[#C2BE9F] lg:mr-4 lg:mb-0 lg:w-[200px] lg:rounded-bl-2xl"
+              className="inline-flex h-11 items-center rounded-full bg-cream px-6 text-sm font-semibold text-navy"
             >
               {t.hero.downloadCv}
             </Link>
 
             <button
               type="button"
-              onClick={() => navigateToSection("about")}
-              className="
-                mt-4 mr-0 w-full max-w-[350px]
-                border-2 border-transparent
-                bg-[#C2BE9F]
-                px-6 py-3
-                font-bold
-                text-[#1A1A18]
-                cursor-pointer
-                transition
-                hover:border-[#C2BE9F]
-                hover:bg-[#1A1A18]
-                hover:text-[#C2BE9F]
-                rounded-b-2xl
-                lg:rounded-br-2xl
-                lg:rounded-bl-none
-                lg:mr-4
-                lg:w-[200px]
-              "
+              onClick={scrollToExperience}
+              className="cursor-pointer text-sm font-semibold text-accent underline-offset-4 hover:underline"
             >
               {t.hero.viewExperience}
             </button>
           </div>
+        </div>
+
+        <div className="mx-auto lg:mx-0">
+          <Image
+            src={Photo}
+            alt={t.hero.imageAlt}
+            width={340}
+            height={340}
+            priority
+            className="h-56 w-56 rounded-full border-4 border-cream object-cover sm:h-72 sm:w-72 lg:h-80 lg:w-80"
+          />
         </div>
       </div>
     </section>

@@ -1,102 +1,54 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import type { MouseEvent } from "react";
 
-import { useSection } from "../contexts/section-context";
 import { useTranslations } from "../i18n";
 
-import Linkedin from "../../../public/img/linkedin.svg";
-import Behance from "../../../public/img/behance.svg";
-import Threads from "../../../public/img/threads.svg";
-
-type FooterProps = {
-  /** Cor em formato CSS, ex: "#ECE7C1" */
-  textColor?: string;
-};
-
-export default function Footer({
-  textColor,
-}: FooterProps) {
-  const { navigateToSection, activeSection } = useSection();
+export default function Footer() {
   const t = useTranslations();
 
-  const resolvedColor =
-    textColor ??
-    (activeSection === "work"
-      ? "#222222"
-      : activeSection === "contact"
-        ? "#1A1A18"
-        : "#ECE7C1");
-
-  const handleHomeClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    navigateToSection("home");
-  };
-
   return (
-    <footer className="hidden lg:fixed lg:top-0 lg:left-0 lg:z-40 lg:flex lg:h-screen lg:w-[70px] lg:flex-col lg:items-center">
-      <div className="flex flex-col items-center">
-        <button
-          type="button"
-          onClick={handleHomeClick}
-          className={`m-2 p-2 text-xs transition-opacity hover:opacity-80 ${activeSection === "home" ? "opacity-60" : ""}`}
-          style={{ color: resolvedColor }}
-          aria-label={t.footer.home}
-        >
-          {t.footer.home}
-        </button>
+    <footer className="px-4 pb-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex items-center justify-between rounded-full border border-cream/10 bg-card px-5 py-3">
+          <p className="text-sm text-cream">{t.footer.socialLabel}</p>
 
-        <div className="flex flex-col items-center">
-          <Link
-            className="m-2 p-2 transition-opacity hover:opacity-80"
-            href="https://www.linkedin.com/in/johnrodrigues009/"
-            aria-label="LinkedIn"
-          >
-            <Image
-              src={Linkedin}
-              alt="LinkedIn"
-              width={20}
-              height={20}
-              className="animate-spin-slow hover:scale-125"
-            />
-          </Link>
-
-          <Link
-            className="m-2 p-2 transition-opacity hover:opacity-80"
-            href="https://www.behance.net/johnrodrigues008"
-            aria-label="Behance"
-          >
-            <Image
-              src={Behance}
-              alt="Behance"
-              width={20}
-              height={20}
-              className="animate-spin-slow hover:scale-125"
-            />
-          </Link>
-
-          <Link
-            className="m-2 p-2 transition-opacity hover:opacity-80"
-            href="https://www.threads.net"
-            aria-label="Threads"
-          >
-            <Image
-              src={Threads}
-              alt="Threads"
-              width={20}
-              height={20}
-              className="animate-spin-slow-reverse hover:scale-125"
-            />
-          </Link>
+          <nav aria-label={t.footer.socialLabel} className="flex items-center gap-4">
+            <Link
+              href="https://github.com/johnrodrigues009"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="text-accent"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.79 8.21 10.37.6.11.82-.26.82-.58v-2.17c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.85 1.24 1.85 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.82.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5Z" />
+              </svg>
+            </Link>
+            <Link
+              href="https://www.linkedin.com/in/johnrodrigues009/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="text-accent"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.46C23.2 24 24 23.22 24 22.27V1.73C24 .77 23.2 0 22.23 0Z" />
+              </svg>
+            </Link>
+            <Link
+              href="mailto:johnrodrigues008@gmail.com"
+              aria-label="Email"
+              className="text-accent"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z" />
+              </svg>
+            </Link>
+          </nav>
         </div>
-      </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 -rotate-90">
-        <p className="whitespace-nowrap text-xs" style={{ color: resolvedColor }}>
-          © 2026
-        </p>
+        <p className="mt-4 px-2 text-xs text-muted">{t.footer.copyright}</p>
       </div>
     </footer>
   );

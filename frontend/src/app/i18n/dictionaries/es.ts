@@ -2,11 +2,12 @@ import type { Dictionary } from "./en";
 
 export const es: Dictionary = {
   nav: {
-    brand: "Portafolio personal",
+    brand: "John Rodrigues",
     home: "Inicio",
     about: "Sobre mí",
     work: "Trabajo",
     education: "Formación",
+    experience: "Experiencia",
     contact: "Contacto",
     menuLabel: "Menú de navegación",
     openMenu: "Abrir menú",
@@ -18,18 +19,37 @@ export const es: Dictionary = {
     available: "Idiomas disponibles",
   },
   hero: {
-    imageAlt: "John Rodrigues, Desarrollador Full-Stack Senior",
-    role: "Desarrollador Full-Stack · Ingeniería Front-End y Back-End · Diseño de Producto e Interfaz · Accesibilidad Web",
-    bio1:
-      "Desarrollador full-stack con experiencia en todo el ciclo de vida del software, desde el análisis de requisitos y prototipado hasta el desarrollo, las pruebas, el despliegue y el mantenimiento.",
-    bio2:
-      "Experiencia en análisis de sistemas, integración de aplicaciones, arquitectura de software, escalabilidad, mantenibilidad y desarrollo web accesible.",
-    downloadCv: "Descargar currículum",
+    greeting: "¡Hola! Soy John",
+    imageAlt: "John Rodrigues, Desarrollador Full-Stack",
+    downloadCv: "Download CV",
     viewExperience: "Ver experiencia",
+    bio: [
+      { text: "Soy " },
+      { text: "Desarrollador Full Stack", highlight: true },
+      {
+        text: ". Durante los últimos cinco años, he trabajado de forma continua con tecnologías como ",
+      },
+      { text: "React", highlight: true },
+      { text: ", " },
+      { text: "Node.js", highlight: true },
+      { text: " y " },
+      { text: "PostgreSQL", highlight: true },
+      {
+        text: ", entre otras. Al mismo tiempo, profundizo mi expertise en Tecnología de la Información con estudios en ",
+      },
+      { text: "Arquitectura de Software, Ciencia de Datos y Ciberseguridad", highlight: true },
+      { text: "." },
+    ],
+  },
+  skills: {
+    yearsOf: "5 años de",
+    xp: "XP",
+    caption: "con el ecosistema fullstack más popular",
   },
   footer: {
     home: "INICIO",
-    socialLabel: "Redes sociales",
+    socialLabel: "Social Medias",
+    copyright: "John Rodrigues © 2026",
   },
   about: {
     title: "Sobre mí",
@@ -49,7 +69,7 @@ export const es: Dictionary = {
       '"No hay nada tan inútil como hacer con eficiencia aquello que no debería hacerse en absoluto."',
     quoteNote:
       "Esta cita refleja mi enfoque al construir software con propósito y significado.",
-    experience: "EXPERIENCIA",
+    experience: "Experiencia",
     experienceEntries: [
       {
         role: "Desarrollador Full Stack",
@@ -96,7 +116,7 @@ export const es: Dictionary = {
         ],
       },
     ],
-    skills: "HABILIDADES",
+    skills: "Habilidades",
     skillsGroups: [
       { category: "Backend", items: "Node.js (NestJS), PHP (Zend, Doctrine), Python" },
       { category: "Frontend", items: "JavaScript, TypeScript, React.js, Next.js, AngularJS, Angular, HTML5, CSS3, SCSS, Tailwind" },
@@ -104,15 +124,15 @@ export const es: Dictionary = {
       { category: "DevOps y Herramientas", items: "Docker, Git, Bitbucket, Jira, ELK Stack, Scrum, Kanban" },
       { category: "Accesibilidad y SEO", items: "WCAG 2.1, HTML semántico, Core Web Vitals, optimización SEO" },
     ],
-    kudos: "AGRADECIMIENTOS",
+    kudos: "Agradecimientos",
     kudosText:
       "Mi trayectoria ha sido moldeada por mentores y equipos excepcionales que ayudaron a refinar mis habilidades y mi pensamiento como ingeniero y diseñador.",
-    thankYou: "GRACIAS.",
+    thankYou: "Gracias.",
   },
   work: {
-    title: "TRABAJO",
+    title: "Trabajo",
     intro:
-      "Bienvenidos a mi sección de proyectos. Cada trabajo presentado aquí fue desarrollado con atención al detalle y representa una parte de mi trayectoria profesional.",
+      "Una selección de proyectos desarrollados con atención al detalle y foco en problemas reales de producto.",
     scrollDown: "Ir hacia abajo",
     preview: "Preview",
     github: "GitHub",
@@ -140,7 +160,7 @@ export const es: Dictionary = {
     },
   },
   education: {
-    title: "FORMACIÓN",
+    title: "Formación",
     intro:
       "Formación académica y certificaciones que sustentan mi desarrollo continuo en ingeniería de software.",
     degreesTitle: "Títulos",
@@ -177,17 +197,17 @@ export const es: Dictionary = {
     languages: ["Portugués — Nativo", "Inglés — Avanzado", "Español — Intermedio"],
   },
   contact: {
-    title: "CONTACTO",
+    title: "Contacto",
     hello: "Hola.",
     intro:
-      "¿Necesitas un sitio web hermoso y bien estructurado que puedas poseer y mantener tú mismo? Ponte en contacto.",
-    email: "Email: johnrodrigues008@gmail.com",
-    phone: "Teléfono: +55 61 99180-3216",
+      "¿Necesitas un producto bien estructurado que puedas poseer y mantener? Ponte en contacto.",
+    email: "johnrodrigues008@gmail.com",
+    phone: "+55 61 99180-3216",
     location: "Brasília, Brasil",
     internet: "En internet:",
   },
   resume: {
-    pt: "/docs/Curriculum_John_Rodrigues.pdf",
-    en: "/docs/Curriculum_John_Rodrigues_EN.pdf",
+    pt: "/docs/Curriculum  John Rodrigues.pdf",
+    en: "/docs/Curriculum  John Rodrigues.pdf",
   },
 };

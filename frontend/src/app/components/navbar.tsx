@@ -1,183 +1,82 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 
-import { useSection, type SectionId } from "../contexts/section-context";
 import { useTranslations } from "../i18n";
 import Translate from "./translate";
 
-export default function Navbar() {
-  const { navigateToSection, activeSection } = useSection();
-  const pathname = usePathname();
-  const t = useTranslations();
+const SECTION_IDS = ["home", "education", "experience"] as const;
 
-  const [isOpen, setIsOpen] = useState(false);
+export default function Navbar() {
+  const t = useTranslations();
+  const [active, setActive] = useState<(typeof SECTION_IDS)[number]>("home");
 
   const links = [
-    { href: "/about", section: "about" as const, label: t.nav.about },
-    { href: "/work", section: "work" as const, label: t.nav.work },
-    { href: "/education", section: "education" as const, label: t.nav.education },
-    { href: "/contact", section: "contact" as const, label: t.nav.contact },
-  ] as const;
-
-  const handleLinkClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    section: SectionId
-  ) => {
-    e.preventDefault();
-    setIsOpen(false);
-    navigateToSection(section);
-  };
+    { id: "home" as const, label: t.nav.brand },
+    { id: "education" as const, label: t.nav.education },
+    { id: "experience" as const, label: t.nav.experience },
+  ];
 
   useEffect(() => {
-    if (!isOpen) return;
+    const observers: IntersectionObserver[] = [];
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    SECTION_IDS.forEach((id) => {
+      const element = document.getElementById(id);
+      if (!element) return;
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsOpen(false);
-      }
-    };
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActive(id);
+          }
+        },
+        { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+      );
 
-    document.addEventListener("keydown", handleKeyDown);
+      observer.observe(element);
+      observers.push(observer);
+    });
 
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen]);
+    return () => observers.forEach((observer) => observer.disconnect());
+  }, []);
 
-  const isActive = (section: SectionId) =>
-    pathname === "/" && activeSection === section;
+  const scrollTo = (id: string) => {
+    const element = document.getElementById(id);
+    if (!element) return;
+    element.scrollIntoView({ behavior: "auto", block: "start" });
+  };
 
   return (
-    <nav
-      className="
-        relative z-50 flex items-center justify-between
-        px-5 py-4
-        sm:px-8 sm:py-5
-        md:px-12
-        lg:w-[min(48%,42rem)] lg:shrink-0 lg:flex-col lg:items-start lg:justify-center
-        lg:px-6 lg:py-0
-        xl:w-[min(50%,48rem)] xl:px-10
-        2xl:w-[min(52%,56rem)] 2xl:px-14
-        lg:h-[100vh]
-      "
-    >
-      <button
-        type="button"
-        onClick={() => handleLinkClick({ preventDefault: () => {} } as React.MouseEvent<HTMLAnchorElement>, "home")}
-        className="
-          z-50 block cursor-pointer font-grandslang
-          text-[1.5rem] leading-[0.9]
-          transition-all duration-300 ease-in-out
-          hover:skew-x-[-15deg] hover:opacity-80
-          lg:hidden
-        "
-      >
-        {t.nav.brand}
-      </button>
+    <header className="sticky top-0 z-50 bg-background/90">
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-5 sm:grid sm:grid-cols-[1fr_auto_1fr] sm:px-6">
+        <div className="hidden sm:block" />
 
-      <ul className="hidden w-full lg:block lg:space-y-3 xl:space-y-4 2xl:space-y-5">
-        {links.map((link) => (
-          <li key={link.href}>
-            <a
-              href={link.href}
-              onClick={(e) => handleLinkClick(e, link.section)}
-              className={`
-                block cursor-pointer font-grandslang
-                text-[clamp(3.5rem,9vw,10rem)] leading-[0.9]
-                transition-all duration-300 ease-in-out
-                hover:skew-x-[-15deg] hover:opacity-80
-                focus-visible:outline-2 focus-visible:outline-offset-4
-                ${isActive(link.section) ? "opacity-60" : ""}
-              `}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      <div className="contents">
-        <Translate />
-      </div>
-
-      {isOpen && (
-        <div
-          id="mobile-menu"
-          role="dialog"
-          aria-modal="true"
+        <nav
           aria-label={t.nav.menuLabel}
-          className="
-            fixed inset-0 z-40 flex items-center justify-center
-            bg-[#1A1A18]/95 backdrop-blur-md
-          "
+          className="flex max-w-[calc(100%-3rem)] items-center overflow-x-auto rounded-full border border-cream/10 bg-card px-1.5 py-1.5 sm:max-w-none sm:overflow-visible sm:px-2"
         >
-          <ul className="flex flex-col items-center gap-6 text-center sm:gap-8">
-            {links.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.section)}
-                  className="
-                    block cursor-pointer font-grandslang
-                    text-5xl leading-[0.9] sm:text-6xl md:text-7xl
-                    transition-all duration-300 ease-in-out
-                    hover:scale-105 hover:skew-x-[-8deg] hover:opacity-70
-                    focus-visible:outline-2 focus-visible:outline-offset-4
-                  "
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+          {links.map((link) => {
+            const isActive = active === link.id;
 
-      <button
-        type="button"
-        aria-label={isOpen ? t.nav.closeMenu : t.nav.openMenu}
-        aria-expanded={isOpen}
-        aria-controls="mobile-menu"
-        onClick={() => setIsOpen((previous) => !previous)}
-        className="
-          relative z-50 flex h-10 w-10 cursor-pointer
-          flex-col items-end justify-center gap-1.5
-          transition-transform duration-300 hover:scale-110
-          focus-visible:outline-2 focus-visible:outline-offset-4
-          lg:hidden
-        "
-      >
-        <span
-          aria-hidden="true"
-          className={`
-            block h-[2px] w-7 bg-current
-            transition-all duration-300 ease-in-out
-            ${isOpen ? "translate-y-[8px] rotate-45" : ""}
-          `}
-        />
-        <span
-          aria-hidden="true"
-          className={`
-            block h-[2px] w-5 bg-current
-            transition-all duration-300 ease-in-out
-            ${isOpen ? "opacity-0" : "opacity-100"}
-          `}
-        />
-        <span
-          aria-hidden="true"
-          className={`
-            block h-[2px] w-7 bg-current
-            transition-all duration-300 ease-in-out
-            ${isOpen ? "-translate-y-[8px] -rotate-45" : ""}
-          `}
-        />
-      </button>
-    </nav>
+            return (
+              <button
+                key={link.id}
+                type="button"
+                onClick={() => scrollTo(link.id)}
+                className={`font-heading cursor-pointer rounded-full px-2.5 py-2 text-xs tracking-wide whitespace-nowrap sm:px-4 sm:text-sm ${
+                  isActive ? "text-cream" : "text-accent"
+                }`}
+              >
+                {link.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        <div className="flex justify-end">
+          <Translate />
+        </div>
+      </div>
+    </header>
   );
 }

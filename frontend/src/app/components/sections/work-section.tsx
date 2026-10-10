@@ -15,38 +15,41 @@ export default function WorkSection() {
   const t = useTranslations();
 
   return (
-    <div
-      className="section-content flex min-h-full flex-col justify-center px-5 py-10 sm:px-8 md:px-12 lg:px-8 xl:px-10"
-      style={{ backgroundColor: "#ECE7C1", color: "#1A1A18" }}
+    <section
+      id="work"
+      aria-labelledby="work-title"
+      className="scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8"
     >
-      <div className="mx-auto w-full max-w-[22rem] sm:max-w-[26rem] md:max-w-[32rem] lg:mx-0 lg:max-w-[700px]">
-        <h2 className="mb-4 font-grandslang text-4xl leading-[0.9] sm:text-5xl lg:text-6xl">
+      <div className="mx-auto max-w-6xl">
+        <h2
+          id="work-title"
+          className="mb-3 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl"
+        >
           {t.work.title}
         </h2>
-
-        <p className="mb-8 text-sm leading-6 tracking-[1px] lg:text-[15px]">
+        <p className="mb-10 max-w-2xl text-base leading-7 text-muted">
           {t.work.intro}
         </p>
 
-        <ul className="space-y-8">
+        <ul className="grid gap-4 sm:grid-cols-2">
           {PROJECT_LINKS.map(({ key, preview, github }) => {
             const project = t.work.projects[key];
 
             return (
               <li
                 key={key}
-                className="border-b border-[#1A1A18]/20 pb-8 last:border-b-0 last:pb-0"
+                className="flex flex-col rounded-3xl border border-cream/10 bg-card p-6"
               >
-                <h3 className="mb-2 text-lg font-bold tracking-[1px] lg:text-xl">
+                <h3 className="font-heading text-lg font-semibold text-cream">
                   {project.title}
                 </h3>
-                <p className="mb-4 text-sm leading-6 tracking-[1px] lg:text-[15px]">
+                <p className="mt-2 flex-1 text-sm leading-6 text-foreground/80">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="mt-5 flex flex-wrap gap-3">
                   <Link
                     href={preview}
-                    className="inline-block border-2 border-[#1A1A18] px-4 py-2 text-xs font-bold tracking-[1px] transition hover:bg-[#1A1A18] hover:text-[#ECE7C1]"
+                    className="rounded-full border border-cream/20 px-4 py-2 text-xs font-semibold text-cream"
                   >
                     {t.work.preview}
                   </Link>
@@ -54,7 +57,7 @@ export default function WorkSection() {
                     href={github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block border-2 border-transparent bg-[#1A1A18] px-4 py-2 text-xs font-bold tracking-[1px] text-[#ECE7C1] transition hover:border-[#1A1A18] hover:bg-transparent hover:text-[#1A1A18]"
+                    className="rounded-full bg-cream px-4 py-2 text-xs font-semibold text-navy"
                   >
                     {t.work.github}
                   </Link>
@@ -63,11 +66,7 @@ export default function WorkSection() {
             );
           })}
         </ul>
-
-        <p className="mt-10 text-xs tracking-[2px] uppercase opacity-70">
-          {t.work.scrollDown}
-        </p>
       </div>
-    </div>
+    </section>
   );
 }

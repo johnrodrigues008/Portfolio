@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { GoogleTagManager } from '@next/third-parties/google'
 import { Geist_Mono, Montserrat, Source_Sans_3 } from "next/font/google";
+
 
 import "./globals.css";
 import SiteShell from "./components/site-shell";
@@ -38,10 +40,13 @@ export default function RootLayout({
       <body
         className={`${sourceSans.variable} ${montserrat.variable} ${geistMono.variable} ${sourceSans.className} antialiased  cz-shortcut-listen="true"` } 
       >
+
+        
         <LocaleProvider>
           <SiteShell>{children}</SiteShell>
         </LocaleProvider>
       </body>
+      <GoogleTagManager gtmId="GTM-WH3T522D" />
     </html>
   );
 }
